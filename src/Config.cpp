@@ -1,30 +1,5 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cstdlib>
-#include <map>
+#include "Config.h"
 
-using namespace std;
-
-class Config{
-	public:
-		Config(const string fileName);
-
-		void trim(string & str);
-
-		void initConfig();
-
-		int getItems();
-
-		void toString();
-
-		string get(const string item, const string key);
-
-	private:
-		const string _fileName;
-		map< string,map<string,string> > _items;
-
-};
 
 Config::Config(const string filename):_fileName(filename){ } 
 
@@ -151,18 +126,4 @@ string Config::get(const string item, const string key){
 	}
 
 	return value;
-}
-int main(){
-	Config a("../config.ini");
-
-	a.initConfig();
-	cout<<"The number of config items:"<<a.getItems()<<endl;
-
-	cout<<"Get config:"<<a.get("config1","item1")<<endl;
-
-	cout<<"---------toString------------"<<endl;
-	a.toString();
-	
-
-	return 0;
 }
