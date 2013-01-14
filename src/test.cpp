@@ -6,7 +6,7 @@ int main(){
 	Config a("../config.ini");
 
 	a.initConfig();
-	cout<<"The number of config items:"<<a.getItems()<<endl;
+	cout<<"The number of config items:"<<a.getCount()<<endl;
 
 	cout<<"Get config:"<<a.get("config1","item1")<<endl;
 

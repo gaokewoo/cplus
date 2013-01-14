@@ -10,16 +10,26 @@ void Config::trim(string & str) {
 
 //ugly implemention, try to improve it
 void Config::initConfig(){
-	 ifstream fin;
-	 fin.open(_fileName.c_str(),ios_base::in);
+	ifstream fin;
+	fin.open(_fileName.c_str(),ios_base::in);
 
-	 if(!fin){
-		 cerr<<"open file error."<<endl;
-		 fin.close();
-		 exit(3);
-	 }
+	if(!fin){
+		cerr<<"open file error."<<endl;
+		fin.close();
+		exit(3);
+	}
 
+	read2Mem(fin);
+
+	fin.close();
+
+}
+
+void Config::read2Mem(ifstream & fin){
+	
     string item;
+	vector< vector<string> > vt;
+	int i=-1;
 	while(!fin.eof() && getline(fin, item) ){
 		trim(item);
 
@@ -28,8 +38,50 @@ void Config::initConfig(){
 			continue;
 		}
 
+		if( item[0] == '[' ) {
+			i++;
+
+			if(vt.size()<=i) vt.resize(i+1);//Note:i maybe equals 0
+			//if(vt.size()<=i) vt.reserve(i*2+1);//Note:i maybe equals 0
+			cout<<"vector's size:"<<vt.size()<<","<<i<<endl;
+		}
+
+		if( i == -1 ) continue;
+
+		vt[i].push_back(item);
+		cout<<"vt size:"<<vt.size()<<endl;
+	}
+
+	vector< vector<string> >::iterator v_it = vt.begin();
+	cout<<"vt size:"<<vt.size()<<endl;
+	for(;v_it != vt.end();v_it++){
+		string title;
+		map<string,string> kv;
+
+		vector<string>::iterator v_sub_it = (*v_it).begin();
+
+		//the first value is title
+		for(title=*v_sub_it++;v_sub_it != (*v_it).end();v_sub_it++){
+			//cout<<"In vector:"<<*v_sub_it<<endl;
+
+			string tmp = *v_sub_it;
+			string key = tmp.substr(0,tmp.find("="));
+			string value = tmp.substr(tmp.find("=")+1);
+
+			kv.insert(map<string,string>::value_type(key,value)); 
+		}
+
+		title.erase(0,title.find_first_not_of("["));
+		title.erase(title.find_last_not_of("]")+1);
+
+		cout<<"title:"<<title<<endl;
+
+		_items[title]=kv;
+
+	}
+
 		//The begin with char '[' explain a new item
-	    if( item[0] == '[' ) {
+	/*    if( item[0] == '[' ) {
 			item.erase(0,item.find_first_not_of("["));
 			item.erase(item.find_last_not_of("]")+1);
 			//cout<<item<<endl;
@@ -63,14 +115,10 @@ void Config::initConfig(){
 
 		}
 
-	}
-
-
-	fin.close();
-
+	}*/
 }
 
-int Config::getItems(){
+int Config::getCount(){
 	int count=0;
 	map< string, map<string,string> >::const_iterator map_it = _items.begin();
 
@@ -85,13 +133,12 @@ void Config::toString(){
 	map< string, map<string,string> >::const_iterator map_it = _items.begin();
 
 	while(map_it != _items.end()){
-		cout<<"item:"<<map_it->first<<endl;
+		cout<<map_it->first<<endl;
 
 		map<string,string> tmp = _items[map_it->first];
 		map<string,string>::const_iterator map_it_sub = tmp.begin();
 		while(map_it_sub != tmp.end()){
-			cout<<"\t"<<"key:"<<map_it_sub->first<<endl;
-			cout<<"\t"<<"value:"<<map_it_sub->second<<endl;
+			cout<<"\t"<<map_it_sub->first<<":"<<map_it_sub->second<<endl;
 
 			map_it_sub++;
 		}

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <map>
+#include <vector>
 
 #ifndef __CONFIG__
 #define __CONFIG__
@@ -16,11 +17,14 @@ class Config{
 
 		void initConfig();
 
-		int getItems();
+		int getCount();
 
 		void toString();
 
 		string get(const string item, const string key);
+
+	private:
+		void read2Mem(ifstream& fin);
 
 	private:
 		const string _fileName;

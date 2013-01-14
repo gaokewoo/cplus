@@ -3,7 +3,7 @@ SRC=Config
 MAIN=test
 
 all:$(MAIN).o $(SRC).o
-	$(CC) -o $(MAIN) $(MAIN).o $(SRC).o
+	$(CC)  $(MAIN).o $(SRC).o
 
 $(MAIN).o:$(MAIN).cpp
 	$(CC) -c $(MAIN).cpp
