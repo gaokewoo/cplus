@@ -24,7 +24,8 @@ class Config{
 		string get(const string item, const string key);
 
 	private:
-		void read2Mem(ifstream& fin);
+		void read2Mem(ifstream& fin, vector< vector<string> > & vt );
+		void parseData( vector< vector<string> > & vt );
 
 	private:
 		const string _fileName;

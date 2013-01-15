@@ -9,6 +9,7 @@ int main(){
 	cout<<"The number of config items:"<<a.getCount()<<endl;
 
 	cout<<"Get config:"<<a.get("config1","item1")<<endl;
+	cout<<"Get config:"<<a.get("config1","item3")<<endl;
 
 	cout<<"---------toString------------"<<endl;
 	a.toString();

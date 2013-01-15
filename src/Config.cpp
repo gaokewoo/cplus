@@ -11,6 +11,8 @@ void Config::trim(string & str) {
 //ugly implemention, try to improve it
 void Config::initConfig(){
 	ifstream fin;
+	vector< vector<string> > vt;
+
 	fin.open(_fileName.c_str(),ios_base::in);
 
 	if(!fin){
@@ -19,16 +21,18 @@ void Config::initConfig(){
 		exit(3);
 	}
 
-	read2Mem(fin);
+	read2Mem(fin, vt);
+
+	parseData(vt);
 
 	fin.close();
 
 }
 
-void Config::read2Mem(ifstream & fin){
+void Config::read2Mem(ifstream & fin, vector< vector<string> > & vt){
 	
     string item;
-	vector< vector<string> > vt;
+	//vector< vector<string> > vt;
 	int i=-1;
 	while(!fin.eof() && getline(fin, item) ){
 		trim(item);
@@ -43,17 +47,21 @@ void Config::read2Mem(ifstream & fin){
 
 			if(vt.size()<=i) vt.resize(i+1);//Note:i maybe equals 0
 			//if(vt.size()<=i) vt.reserve(i*2+1);//Note:i maybe equals 0
-			cout<<"vector's size:"<<vt.size()<<","<<i<<endl;
+			//cout<<"vector's size:"<<vt.size()<<","<<i<<endl;
 		}
 
 		if( i == -1 ) continue;
 
 		vt[i].push_back(item);
-		cout<<"vt size:"<<vt.size()<<endl;
+		//cout<<"vt size:"<<vt.size()<<endl;
 	}
 
+}
+
+void Config::parseData(vector< vector<string> > & vt){
+
 	vector< vector<string> >::iterator v_it = vt.begin();
-	cout<<"vt size:"<<vt.size()<<endl;
+	//cout<<"vt size:"<<vt.size()<<endl;
 	for(;v_it != vt.end();v_it++){
 		string title;
 		map<string,string> kv;
@@ -61,12 +69,16 @@ void Config::read2Mem(ifstream & fin){
 		vector<string>::iterator v_sub_it = (*v_it).begin();
 
 		//the first value is title
-		for(title=*v_sub_it++;v_sub_it != (*v_it).end();v_sub_it++){
+		title = *v_sub_it++;
+		for(;v_sub_it != (*v_it).end();v_sub_it++){
 			//cout<<"In vector:"<<*v_sub_it<<endl;
 
 			string tmp = *v_sub_it;
 			string key = tmp.substr(0,tmp.find("="));
 			string value = tmp.substr(tmp.find("=")+1);
+			value = value.substr(0,value.find("#"));
+			trim(key);
+			trim(value);
 
 			kv.insert(map<string,string>::value_type(key,value)); 
 		}
@@ -74,7 +86,7 @@ void Config::read2Mem(ifstream & fin){
 		title.erase(0,title.find_first_not_of("["));
 		title.erase(title.find_last_not_of("]")+1);
 
-		cout<<"title:"<<title<<endl;
+		//cout<<"title:"<<title<<endl;
 
 		_items[title]=kv;
 
@@ -133,12 +145,12 @@ void Config::toString(){
 	map< string, map<string,string> >::const_iterator map_it = _items.begin();
 
 	while(map_it != _items.end()){
-		cout<<map_it->first<<endl;
+		//cout<<map_it->first<<endl;
 
 		map<string,string> tmp = _items[map_it->first];
 		map<string,string>::const_iterator map_it_sub = tmp.begin();
 		while(map_it_sub != tmp.end()){
-			cout<<"\t"<<map_it_sub->first<<":"<<map_it_sub->second<<endl;
+			//cout<<"\t"<<map_it_sub->first<<":"<<map_it_sub->second<<endl;
 
 			map_it_sub++;
 		}
@@ -150,7 +162,7 @@ string Config::get(const string item, const string key){
 	map< string, map<string,string> >::const_iterator map_it = _items.begin();
 	string value="";
 
-	while(map_it != _items.end()){
+	/*while(map_it != _items.end()){
 		if( map_it->first == item){
 			map<string,string> tmp = _items[map_it->first];
 			map<string,string>::const_iterator map_it_sub = tmp.begin();
@@ -165,7 +177,8 @@ string Config::get(const string item, const string key){
 			}
 		}
 		map_it++;
-	}
+	}*/
+	value=_items[item][key];
 
 	if(value == ""){
 		cerr<<"no data found"<<endl;
