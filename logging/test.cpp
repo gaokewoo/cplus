@@ -3,8 +3,9 @@
 int main(){
 	Logging & log = Logging::getLogInstance();
 
-	cout<<"-------test debug----------"<<endl;
 	log.initLog("./log.txt",Logging::DEBUG);
+
+	cout<<"-------test debug----------"<<endl;
 	log.debug("test debug");
 	log.info("test debug");
 	log.warn("test debug");
@@ -12,7 +13,7 @@ int main(){
 	log.critical("test debug");
 
 	cout<<"-------test error----------"<<endl;
-	log.initLog("./log.txt",Logging::ERROR);
+	log.setLogLevel(Logging::ERROR);
 	log.debug("test debug");
 	log.info("test debug");
 	log.warn("test debug");

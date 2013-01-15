@@ -4,6 +4,7 @@ void Logging::initLog(string logName, LOG_LEVEL logLevel, string timeFmt){
 	_logName = logName;
 	_logLevel = logLevel;
 	_timeFmt = timeFmt;
+	cout<<"logLevel:"<<_logLevel<<endl;
 
 	_fout.open(_logName.c_str(),ios_base::app);
 	if(!_fout){
@@ -22,9 +23,12 @@ string Logging::getSysTime(){
 	return tmp;
 }
 
+void Logging::setLogLevel(LOG_LEVEL logLevel){
+	cout<<"Change log level from "<<_logLevel<<" to "<<logLevel<<endl;
+	_logLevel=logLevel;
+}
 
 void Logging::debug(string msg){
-	cout<<"logLevel:"<<_logLevel<<endl;
 	if(_logLevel <= DEBUG)
 		_fout<<"["<<getSysTime()<<"][DEBUG]"<<msg<<endl;
 }

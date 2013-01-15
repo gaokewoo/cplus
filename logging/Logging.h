@@ -24,6 +24,7 @@ class Logging{
 		void warn(string msg);
 		void error(string msg);
 		void critical(string msg);
+		void setLogLevel(LOG_LEVEL logLevel);
 
 	private:
 		string getSysTime();
