@@ -10,7 +10,8 @@ int main(){
 	//getline(fin,tmp,',');
 	//getline(fin,tmp);
 	//fin>>tmp;
-	while(fin>>tmp){
+	//while(fin>>tmp){
+	while(getline(fin,tmp,',')){
 		cout<<tmp<<endl;
 	}
 	if(!fin.eof()){
