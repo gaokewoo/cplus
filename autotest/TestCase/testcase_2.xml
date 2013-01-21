@@ -1,0 +1,82 @@
+[step/1]
+REQ=
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1009</SequenceNum>
+		</Header>
+		<Request>
+			<Action>Subscribe</Action>
+			<Client>
+				<ID>User</ID>
+				<PWD>RayooTech</PWD>
+			</Client>
+		</Request>
+	</Eadp>
+RESP=
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1</SequenceNum>
+			<ReqSeqNum>1009</ReqSeqNum>
+		</Header>
+		<Response>
+			<ProviderName>Super ADP</ProviderName>
+			<SupportedSystem GPS="YES" GLONASS="YES" />
+		</Response>
+	</Eadp>
+
+
+[step/2]
+REQ=
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1009</SequenceNum>
+		</Header>
+		<DataRequest>
+			<ConfigDataList>
+				<ConfigData DataName="ReferenceTime">
+					<DataType type="Period"/>
+					<Interval>6</Interval>
+				</ConfigData>
+			</ConfigDataList>
+			<RefLocation>
+				<RefLatitude>50.1994</RefLatitude>
+				<RefLongitude>10.288</RefLongitude>
+				<RefAltitude>25</RefAltitude>
+			</RefLocation>
+		</DataRequest>
+	</Eadp>
+RESP=
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1</SequenceNum>
+			<ReqSeqNum>1009</ReqSeqNum>
+		</Header>
+		<DataRequestResp>
+			<ConfigDataList>
+				<ConfigData DataName="ReferenceTime">
+					<DataType type="Period" />
+					<Interval>6</Interval>
+				</ConfigData>
+			</ConfigDataList>
+			<Error>
+				<Code>101</Code>
+				<Reason>Partly succeed</Reason>
+			</Error>
+		</DataRequestResp>
+	</Eadp>
+	
+[step/3]
+REQ=
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1009</SequenceNum>
+		</Header>
+		<Request>
+			<Action>UnSubscribe</Action>
+		</Request>
+	</Eadp>

@@ -1,0 +1,28 @@
+[step/1]
+REQ=
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1016</SequenceNum>
+		</Header>
+		<Request>
+			<Action>Subscribe</Action>
+			<Client>
+				<ID>User</ID>
+				<PWD>RayooTech</PWD>
+			</Client>
+		</Request>
+	</Eadp>
+RESP=
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<Eadp>
+		<Header ver="2.0.0">
+			<SequenceNum>1</SequenceNum>
+			<ReqSeqNum>1016</ReqSeqNum>
+		</Header>
+		<Response>
+			<ProviderName>Super ADP</ProviderName>
+			<SupportedSystem GPS="YES" GLONASS="YES" />
+		</Response>
+	</Eadp>
+
