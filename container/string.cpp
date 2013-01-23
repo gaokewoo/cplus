@@ -24,6 +24,8 @@ int main(){
 	}
 	cout<<"-----test iterator end------\n"<<endl;
 
+	s.append("67");
+
 	return 0;
 
 }
