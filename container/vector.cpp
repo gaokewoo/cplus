@@ -138,6 +138,15 @@ void test3_other(vector<int> & ivec){
 		it++;
 	}
 
+	cout<<"\n----------test insert begin-----------"<<endl;
+	vector<int>::iterator it2 = ivec.begin(); //test insert,output:1,2,3,4,5
+	ivec.insert(it2,0);
+	while(it2 != ivec.end()){
+		cout<<__func__<<" value:"<<*it2<<endl;
+		it2++;
+	}
+	cout<<"----------test insert end-----------\n"<<endl;
+
 	ivec.erase(--it);
 	print_value(ivec); //output:1,2,3,4
 	cout<<__func__<<" test capacity:"<<ivec.capacity()<<endl; //output:8
@@ -152,6 +161,7 @@ void test3_other(vector<int> & ivec){
 	cout<<__func__<<" test capacity:"<<ivec.capacity()<<endl; //output:8
 	cout<<__func__<<" test size:"<<ivec.size()<<endl; //output:7
 	print_value(ivec); //output:1,2,3,10,10,10,10
+	
 }
 
 
