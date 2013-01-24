@@ -1,0 +1,4 @@
+#for compiling test_hi.cpp,this is a test program which use google test suite to do unit test
+
+g++ -I../include -g -Wall -Wextra -lpthread gtest_main.a hi.cpp test_hi.cpp -o test_hi 
+
