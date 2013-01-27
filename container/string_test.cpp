@@ -20,7 +20,7 @@ TEST_F(string_test,assign) {
 	string s2("abc",2);
 	EXPECT_EQ(s2,"ab");
 
-	string s3(s,2);
+	string s3(s,2); //attention:this function is different with the previous function
 	EXPECT_EQ(s3,"c");
 
 	string s4(s,2,2);
@@ -53,4 +53,25 @@ TEST_F(string_test,insert) {
 	s.insert(0,3,'f');
 	EXPECT_EQ(s,"fffaaeaeedbc");//test s.insert(pos,n,c)
 
+	s.insert(0,"abc",2);
+	EXPECT_EQ(s,"abfffaaeaeedbc");//test s.insert(pos,cp,len)
+
+	s.insert(0,"hijklmn",2,3);//test s.insert(pos,s2,pos2,len)
+	EXPECT_EQ(s,"jklabfffaaeaeedbc");
+
+	s.erase(0,2);//test s.erase(pos,len);
+	EXPECT_EQ(s,"labfffaaeaeedbc");
 }
+
+TEST_F(string_test,substr){
+	string s2;
+	s2=s.substr(0,2); //test s.substr(pos,n)
+	EXPECT_EQ(s2,"ab");
+
+	s2=s.substr(2); //test s.substr(pos)
+	EXPECT_EQ(s2,"c");
+
+	s2=s.substr(); //test s.substr()
+	EXPECT_EQ(s2,"abc");
+}
+
